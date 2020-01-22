@@ -1,0 +1,31 @@
+{
+  "name": "bar-buddy",
+  "version": "1.0.0",
+  "description": "Application where users can get information about spirits, beer, wine and rate/review their favorite beverages.",
+  "main": "server.js",
+  "scripts": {
+    "test": "",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "CDKN",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "express": "^4.17.0",
+    "express-session": "^1.16.1",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.8.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmoraes2013/Bar-Buddy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cmoraes2013/Bar-Buddy/issues"
+  },
+  "homepage": "https://github.com/cmoraes2013/Bar-Buddy#readme"
+}
