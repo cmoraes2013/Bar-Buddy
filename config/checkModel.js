@@ -37,7 +37,7 @@ module.exports = function() {
             })
             .on('end', () => {
                 // end occurs *after* the last record is read
-                report.brandCt = --rows;
+                report.brandCt = rows;
                 console.log(`${rows} records from CSV file added to Brands.`);
             });
         }
