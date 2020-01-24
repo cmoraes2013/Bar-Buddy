@@ -39,23 +39,23 @@ module.exports = function(sequelize, Sequelize) {
     },
     ratingsOneStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsTwoStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsThreeStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsFourStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsFiveStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     }
   });
 

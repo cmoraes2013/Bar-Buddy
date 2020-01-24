@@ -15,12 +15,12 @@ module.exports = function(sequelize, Sequelize) {
       primaryKey: true
     },
     // The email cannot be null, and must be a proper email before creation
-    email: {
+    userName: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
+        len: [6,100]
       }
     },
     // The password cannot be null

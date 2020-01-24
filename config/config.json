@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "barbuddy_db",
-    "host"    : "127.0.0.1",
+    "host"    : "localhost",
     "dialect" : "mysql",
     "logging" : false
   },
