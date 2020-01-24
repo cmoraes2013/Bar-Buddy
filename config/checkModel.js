@@ -28,11 +28,16 @@ module.exports = function() {
             .on('data', (line) => {
               rows++;
               db.Brands.create({
-                brandSerial :  line['Brand Label Serial Number'],
-                bevName     :  line['Brand Label Name'],
-                category    :  line['License Class Description'],
-                description :  line['Product Description'],
-                import      : (line['Domestic (D) or Imported (I)'] == 'I')
+                brandSerial     : line['Brand Label Serial Number'],
+                bevName         : line['Brand Label Name'],
+                category        : line['License Class Description'],
+                description     : line['Product Description'],
+                import          :(line['Domestic (D) or Imported (I)'] == 'I'),
+                ratingsOneStar  : 0,
+                ratingsTwoStar  : 0,
+                ratingsThreeStar: 0,
+                ratingsFourStar : 0,
+                ratingsFiveStar : 0
               })
             })
             .on('end', () => {

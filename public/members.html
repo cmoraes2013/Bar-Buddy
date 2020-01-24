@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <title>Passport Authentication</title>
+  <title>Bar Buddy - You're In!</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link href="stylesheets/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,9 +22,39 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome <span class="member-name"></span></h2>
+        <h2>What can I tell you about, <span class="member-name"></span>?</h2>
       </div>
     </div>
+    <div class="row">
+        <form class="search">
+          <div class="form-group">
+            <label for="inputBrand">Brand</label>
+            <input type="text" class="form-control" id="search-input" name="inputBrand" placeholder="Brand">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+        </form>
+        <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span> <span class="msg"></span>
+        </div>
+    </div>
+    <div class="row">
+      <div id="searchResult"></div>
+    </div>  
+    <div class="row">
+        <form class="review" style="display: none">
+          <div class="form-group">
+            <label for="inputRating">Stars? Give me a number.</label>
+            <input type="text" class="form-control" id="rating-input" name="inputRating" placeholder="Stars">
+            <label for="inputReview">Review</label>
+            <input type="text" class="form-control" id="review-input" name="inputReview" placeholder="Review">
+          </div>
+          <button type="submit" class="btn btn-default">Tell Me!</button>
+        </form>
+    </div>  
+    <div class="row">
+      <div class="reviews-block"></div>
+    </div>  
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

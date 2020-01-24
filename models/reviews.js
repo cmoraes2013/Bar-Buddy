@@ -27,6 +27,14 @@ module.exports = function(sequelize, Sequelize) {
         max: 5
       }
     },
+    createdAt: {
+      type: Sequelize.DATE,
+      allowNull: true
+    },      
+    updatedAt: {
+      type: Sequelize.DATE,
+      allowNull: true    
+    },
     review: {
       type: Sequelize.TEXT,
       allowNull: false
