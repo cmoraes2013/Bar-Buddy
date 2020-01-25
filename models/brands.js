@@ -59,13 +59,5 @@ module.exports = function(sequelize, Sequelize) {
     }
   });
 
-  Brands.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
-    Brands.hasMany(models.Reviews, {
-      onDelete: "cascade"
-    });
-  };
-
   return Brands;
 };

@@ -67,11 +67,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Register our route handlers
-require('./routes/html-routes.js')(app);
-require('./routes/api-routes.js')(app);
+require('./routes/routes.js')(app);
 
 // 'Sync' the ORM model with the database tables, on completion link to the HTTP service.
-db.sequelize.sync({ force: false }).then(() => {
+
+// during development, set force = true if you wish to destroy and re-create tables 
+// on every run. force == false means the tables will only be created if they're absent.
+let force = false;
+
+// after deployment, when process.env.PORT is non-zero, use force == false.
+force = process.env.PORT ? false : force;
+
+db.sequelize.sync({ force: force }).then(() => {
   checkModel();
   app.listen(PORT, () => {
     console.log(`Serving PORT ${PORT}`);
