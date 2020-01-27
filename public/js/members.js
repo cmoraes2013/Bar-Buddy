@@ -6,6 +6,7 @@ $(document).ready(function() {
     // query for matching brand.  
     $.post("/api/brand", userData)
     .then((data) => {
+
       // show Rate & Review form after finding a brand
       // the server makes one big ugly object of brand info
       // and Reviews; intended to be suitable for handlebars.
@@ -18,14 +19,26 @@ $(document).ready(function() {
       // @*@*@ writing this data attribute as part of re-providing the page.
 
       // @*@*@ so delete this 'if' and its contents
-      if (data) {
+      location.reload();
+      
+      if (1) {
 
-        $(".review").show();
-        $("#bigBlob-block").attr("data-bevName",data.bevName);
+        
+        // $.ajax("/member",{
+        //  type: "GET",
+        //  data: data
+        // })
+        // .then(
+        //   function(){
+        //     console.log("reloading page");
+        //   }
+        // );
+        // $(".review").show();
+        // $("#bigBlob-block").attr("data-bevName",data.bevName);
 
-        // @*@*@ and of course handlebars will have integrated this 
-        // @*@*@ data as the page was being produced for delivery
-        $("#bigBlob-block").text(JSON.stringify(data));
+        // // @*@*@ and of course handlebars will have integrated this 
+        // // @*@*@ data as the page was being produced for delivery
+        // $("#bigBlob-block").text(JSON.stringify(data));
       } else {
         // no match. try a pattern match.
         $.post("/api/match", userData)
@@ -37,20 +50,22 @@ $(document).ready(function() {
     })
   }
 
-  // Search
-  $(".search").on("submit", (event) => {
-    event.preventDefault();
 
+  // Search
+  $("#query").click((event) => {
+    event.preventDefault();
+  
     // Read the search box, then clean up and uppercase the input.
     // (The brand names are in uppercase in the Brands table.)
-    let userData = {bevName: $("#search-input").val().trim().toUpperCase()}; 
-
+    let userData = {bevName: $("#search").val().trim().toUpperCase()}; 
+    console.log($("#search").val().trim().toUpperCase());
     // If there was text content...
     if (userData.bevName) {
+      console.log("calling getBev")
       // ...ask for brand info and any reviews
       getBev(userData);
       // Wipe the search box.  Tidy, tidy.
-      $("#search-input").val("");
+      $("#query").val("");
     }
   });
 

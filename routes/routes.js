@@ -20,7 +20,7 @@ let bevObj = {
   showForm    : false,
   showSearch  : false,
   brandId     : 0,
-  bevName     : '',
+  bevName     : 'test',
   category    : '',
   imported    : '',
   description : '',
@@ -39,7 +39,7 @@ module.exports = function(app) {
   app.get("/home", function(req, res) {
     //res.sendFile(path.join(__dirname, "../public/members.html"));
     // @*@*@ use bevObj through handlebars
-    res.render("index");
+    res.render("index", bevObj);
   });
 
   app.get("/signup", function(req, res) {
@@ -51,8 +51,7 @@ module.exports = function(app) {
   });
 
   app.get("/members", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/members.html"));
-    // @*@*@ use bevObj through handlebars
+    res.render("index",req.body);
   });
 
   // Using the passport.authenticate middleware with our local strategy.
@@ -171,7 +170,8 @@ module.exports = function(app) {
             // chronological order given the id auto-increment assignment.
             // with unshift, the oldest will be at the highest index in the reviews array.
             data.forEach((elt) => {bevObj.reviews.unshift(elt);});
-            res.json(bevObj);
+            console.log(JSON.stringify(bevObj));
+            res.status(200).end();
           } else {
             res.status(401);
           }

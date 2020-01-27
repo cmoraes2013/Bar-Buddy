@@ -33,7 +33,7 @@
       <form>
         <div class="input-field yellow darken-4" style="border-radius: 50px">
           <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <label class="label-icon" for="search"><i id="query"class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
       </form>
@@ -49,7 +49,7 @@
 <div class="container">
     <div class="row">
         <div class="col s12">
-            <h3 class="header">Heineken</h3>
+            <h3 class="header">{{bevName}}</h3>
             <div class="card horizontal">
                 <div class="col s3">
                     <div class="card-image">
@@ -61,19 +61,23 @@
                     <div class="card-stacked">
                         <div class="row" style="margin-top: 20px">
                             <div class="col s9 description">
-                                drink description goes here
+                                {{category}}
                             </div>
                             <div class="col s3 rating">
-                                drink rating
+                                {{avgRating}}
                             </div>
                         </div>
                         <div class="card-content flow-text">
-                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+                            <p>{{description}}</p>
                         </div>
                         <div class="card-action">
                             <ul class="collapsible" data-collapsible = "accordion">
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>REVIEWS</div>
+                                      <div class="collapsible-header"><i class="material-icons">filter_drama</i>REVIEWS</div>
+                                        {{#each reviews}}
+                                            <div class="collapsible-body"><span></span></div>
+                                        {{/each}}
+                                  
                                     <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                 </li>
                             </ul>
