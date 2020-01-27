@@ -39,33 +39,25 @@ module.exports = function(sequelize, Sequelize) {
     },
     ratingsOneStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsTwoStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsThreeStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsFourStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     },
     ratingsFiveStar: {
       type: Sequelize.BIGINT,
-      allowNull: true
+      default: 0
     }
   });
-
-  Brands.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
-    Brands.hasMany(models.Reviews, {
-      onDelete: "cascade"
-    });
-  };
 
   return Brands;
 };

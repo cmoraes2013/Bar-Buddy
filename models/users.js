@@ -15,12 +15,12 @@ module.exports = function(sequelize, Sequelize) {
       primaryKey: true
     },
     // The email cannot be null, and must be a proper email before creation
-    email: {
+    userName: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
+        len: [6,100]
       }
     },
     // The password cannot be null
@@ -31,6 +31,9 @@ module.exports = function(sequelize, Sequelize) {
         len: [8,100]
       }
     },
+    // categories are for future implementation of favorite categories.
+    // use-model would be to prompt a user to review new brands within
+    // preferred categories.
     categoryOne: {
       type: Sequelize.STRING,
       allowNull: true
@@ -44,6 +47,7 @@ module.exports = function(sequelize, Sequelize) {
       allowNull: true
     }
   });
+  
   // Assign a method to unhash a stored password and compare it to a new password
   Users.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
@@ -58,14 +62,6 @@ module.exports = function(sequelize, Sequelize) {
       null
     );
   });
-
-  Users.associate = function(models) {
-    // Associating Users with Reviews
-    // When a User is deleted, also delete any associated Reviews
-    Users.hasMany(models.Reviews, {
-      onDelete: "cascade"
-    });
-  };
 
   return Users;
 };
