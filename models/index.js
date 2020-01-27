@@ -17,16 +17,12 @@ require("dotenv").config();
 let db = {};
 let sequelize;
 
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable]);
-} else {
   sequelize = new Sequelize(
     config.database,
     config.username,
     process.env.password,
     config
   );
-}
 
 fs
   // for all the files in this directory
