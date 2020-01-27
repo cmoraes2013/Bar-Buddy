@@ -70,14 +70,16 @@ $(document).ready(function() {
   });
 
   // Post a Review (Rating + Review)
-  $(".review").on("submit", (event) => {
+  $("#submit-review").click((event) => {
     event.preventDefault();
 
     // Assign an object for the post
     let reviewData = {
-      rating: $("#rating-input").val(),
+      rating: $("#rating-input").val().trim(),
       review: $("#review-input").val().trim()
     };
+
+    console.log(reviewData);
 
     // Clean up the entry boxes
     $("#rating-input").val("");

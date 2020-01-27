@@ -27,18 +27,19 @@
         <div class="container ">
             <div class="row">
                 <div class="col s12">
-                    
-  <nav class="transparent">
-    <div class="nav-wrapper">
-      <form>
-        <div class="input-field yellow darken-4" style="border-radius: 50px">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i id="query"class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-    </div>
-  </nav>
+
+                    <nav class="transparent">
+                        <div class="nav-wrapper">
+                            <form>
+                                <div class="input-field yellow darken-4" style="border-radius: 50px">
+                                    <input id="search" type="search" required>
+                                    <label class="label-icon" for="search"><i id="query"
+                                            class="material-icons">search</i></label>
+                                    <i class="material-icons">close</i>
+                                </div>
+                            </form>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -71,15 +72,44 @@
                             <p>{{description}}</p>
                         </div>
                         <div class="card-action">
-                            <ul class="collapsible" data-collapsible = "accordion">
+                            <ul class="collapsible" data-collapsible="accordion">
+
+                                {{!-- SHOW REVIEWS --}}
                                 <li>
-                                      <div class="collapsible-header"><i class="material-icons">filter_drama</i>REVIEWS</div>
-                                        {{#each reviews}}
-                                            <div class="collapsible-body"><span></span></div>
-                                        {{/each}}
-                                  
+                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>REVIEWS
+                                    </div>
+                                    {{#each reviews}}
+                                        <div class="collapsible-body"><span>{{this}}</span></div>
+                                    {{/each}}
+
                                     <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                 </li>
+
+                                {{!-- ADD A REVIEW/ RATING --}}
+                                <li>
+                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>ADD A REVIEW</div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <form class="col s12">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <textarea id="review-input"
+                                                            class="materialize-textarea"></textarea>
+                                                        <label for="review-input">Textarea</label>
+                                                    </div>
+                                                    <div class="input-field col s12">
+                                                        <textarea id="rating-input"
+                                                            class="materialize-textarea"></textarea>
+                                                        <label for="rating-input">Rating (1-5)</label>
+                                                    </div>
+                                                    <a id="submit-review" class="waves-effect waves-light btn">submit</a>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -88,4 +118,3 @@
         </div>
     </div>
 </div>
-
