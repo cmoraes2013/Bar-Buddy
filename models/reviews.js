@@ -14,8 +14,8 @@ module.exports = function(sequelize, Sequelize) {
       type: Sequelize.BIGINT.UNSIGNED,
       allowNull: false
     },
-    userId: {
-      type: Sequelize.BIGINT.UNSIGNED,
+    userName: {
+      type: Sequelize.STRING,
       allowNull: false
     },
     reviewRating: {
@@ -40,26 +40,6 @@ module.exports = function(sequelize, Sequelize) {
       allowNull: false
     }
   });
-
-  Reviews.associate = function(models) {
-  // A Review comes from a User; a Review can't be created without a 
-  // User due to the foreign key constraint
-    Reviews.belongsTo(models.Users, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
-
-  Reviews.associate = function(models) {
-  // A Review is about a Brand; a Review can't be created without a 
-  // Brand due to the foreign key constraint
-    Reviews.belongsTo(models.Brands, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
 
   return Reviews;
 };
