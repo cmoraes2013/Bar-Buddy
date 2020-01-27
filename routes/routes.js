@@ -4,6 +4,8 @@ const db        = require("../models");
 const Sequelize = require("sequelize");
 const passport  = require("../config/passport");
 
+
+
 // The server keeps these 'page variables' to 
 let currentUserName  = '';
 let currentBrandName = '';
@@ -34,9 +36,10 @@ let bevObj = {
 
 module.exports = function(app) {
 
-  app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/members.html"));
+  app.get("/home", function(req, res) {
+    //res.sendFile(path.join(__dirname, "../public/members.html"));
     // @*@*@ use bevObj through handlebars
+    res.render("index");
   });
 
   app.get("/signup", function(req, res) {

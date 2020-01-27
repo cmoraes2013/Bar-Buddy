@@ -38,6 +38,7 @@ const session = require('express-session');
 const checkModel = require('./config/checkModel.js');
 // passport.js has been tailored for a 'Local' strategy
 let passport = require('./config/passport.js');
+var exphbs = require("express-handlebars");
 
 //***************
 //*   Startup   *
