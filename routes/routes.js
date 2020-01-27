@@ -1,7 +1,8 @@
 // Bar Buddy route handling - consolidated file
-const path     = require("path");
-const db       = require("../models");
-const passport = require("../config/passport");
+const path      = require("path");
+const db        = require("../models");
+const Sequelize = require("sequelize");
+const passport  = require("../config/passport");
 
 // The server keeps these 'page variables' to 
 let currentUserName  = '';
@@ -14,6 +15,8 @@ let currentRatings   = [0,0,0,0,0];
 let bevObj = {
   loggedIn    : false,
   userName    : '',
+  showForm    : false,
+  showSearch  : false,
   brandId     : 0,
   bevName     : '',
   category    : '',
@@ -25,7 +28,8 @@ let bevObj = {
   rThreeStar  : 0,
   rTwoStar    : 0,
   rOneStar    : 0,
-  reviews     : []
+  reviews     : [],
+  searchNames : []
 };
 
 module.exports = function(app) {
@@ -43,10 +47,9 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/members", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
+    // @*@*@ use bevObj through handlebars
   });
 
   // Using the passport.authenticate middleware with our local strategy.
@@ -110,10 +113,10 @@ module.exports = function(app) {
       }
     })
     .then((data) => {
-      if (data.length == 0) {
-        // uh oh, a miss.
-        console.log(`Search Failure: ${brandName} not in Brands`);
-        res.status(404);
+      if (!data) {
+        // uh-oh, a miss.
+        console.log(`Search Failure: ${brandName} not in Brands. Try partial.`);
+        res.end();
       } else {
         // When a new search succeeds, a new brandId and bevName for 
         // seeing and creating Reviews is established. 
@@ -135,6 +138,8 @@ module.exports = function(app) {
         bevObj = {
           loggedIn    : (currentUserName != ''),
           userName    : currentUserName,
+          showForm    : true,
+          showSearch  : false,
           brandId     : data.dataValues.brandId,
           bevName     : currentBrandName,
           category    : data.dataValues.category,
@@ -146,7 +151,10 @@ module.exports = function(app) {
           rThreeStar  : currentRatings[2],
           rTwoStar    : currentRatings[1],
           rOneStar    : currentRatings[0],
-          reviews     : []
+          // this is a persistent object, so dump any old reviews
+          reviews     : [],
+          // and clear the last search results
+          searchNames : []
         }
         // Now fetch the reviews for this brand
         db.Reviews.findAll({
@@ -166,6 +174,41 @@ module.exports = function(app) {
           }
         });
       }
+    });
+  });
+
+  // Client would like to find brands from an incomplete name.
+  // This query will return a different object -- session info
+  // and an array of names where each matches the pattern.
+  app.post("/api/match", function(req, res) {
+    // the Brands table uses uppercase.
+    let brandSearchName = `${req.body.bevName.toUpperCase()}%`;
+
+    console.log(`Pattern search: ${brandSearchName}`);
+    // look for the name in the Brands table
+    db.Brands.findAll({
+      attributes: ['brandId','bevName'],
+      where: {
+        bevName: {
+          [Sequelize.Op.like]: brandSearchName
+        }  
+      }
+    })
+    .then((data) => {
+      if (!data) {
+        // nothing matches this pattern
+        res.end();
+      } else {
+        // Search results:
+        bevObj.loggedIn    = (currentUserName != ''),
+        bevObj.userName    =  currentUserName,
+        bevObj.showForm    = false;
+        bevObj.showSearch  = true;
+        bevObj.reviews     = [];
+        bevObj.searchNames = [];
+        data.forEach((elt) => {bevObj.searchNames.push(elt.dataValues.bevName);});
+        res.json(bevObj);
+      }  
     });
   });
 

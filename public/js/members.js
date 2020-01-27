@@ -7,7 +7,6 @@ $(document).ready(function() {
     $.post("/api/brand", userData)
     .then((data) => {
       // show Rate & Review form after finding a brand
-      $(".review").show();
       // the server makes one big ugly object of brand info
       // and Reviews; intended to be suitable for handlebars.
 
@@ -21,11 +20,19 @@ $(document).ready(function() {
       // @*@*@ so delete this 'if' and its contents
       if (data) {
 
+        $(".review").show();
         $("#bigBlob-block").attr("data-bevName",data.bevName);
 
         // @*@*@ and of course handlebars will have integrated this 
         // @*@*@ data as the page was being produced for delivery
         $("#bigBlob-block").text(JSON.stringify(data));
+      } else {
+        // no match. try a pattern match.
+        $.post("/api/match", userData)
+        .then((data) => {
+          $(".review").hide();
+          $("#bigBlob-block").text(JSON.stringify(data));
+        })
       }
     })
   }
@@ -38,13 +45,12 @@ $(document).ready(function() {
     // (The brand names are in uppercase in the Brands table.)
     let userData = {bevName: $("#search-input").val().trim().toUpperCase()}; 
 
-    // Wipe the search box.  Tidy, tidy.
-    $("#search-input").val("");
-
     // If there was text content...
     if (userData.bevName) {
       // ...ask for brand info and any reviews
       getBev(userData);
+      // Wipe the search box.  Tidy, tidy.
+      $("#search-input").val("");
     }
   });
 
