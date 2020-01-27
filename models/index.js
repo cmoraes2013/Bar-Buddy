@@ -7,7 +7,12 @@ const path = require("path");
 const Sequelize = require("sequelize");
 let basename = path.basename(module.filename);
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
-let config = require(__dirname + "/../config/config.json")[env];
+let config;
+if (process.env.JAWSDB_URL) {
+  config = require(__dirname + "/../config/config.js")[env]; 
+} else {
+  config = require(__dirname + "/../config/config.json")[env];
+}
 require("dotenv").config();
 let db = {};
 let sequelize;
