@@ -16,7 +16,7 @@ module.exports = function(sequelize, Sequelize) {
     },
     userName: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     reviewRating: {
       type: Sequelize.INTEGER,
