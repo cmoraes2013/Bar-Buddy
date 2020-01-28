@@ -20,7 +20,7 @@ let bevObj = {
   showForm    : false,
   showSearch  : false,
   brandId     : 0,
-  bevName     : 'test',
+  bevName     : '',
   category    : '',
   imported    : '',
   description : '',
