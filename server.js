@@ -35,7 +35,7 @@
 // Requiring necessary npm packages
 const express = require('express');
 const session = require('express-session');
-const checkModel = require('./config/checkModel.js');
+// const checkModel = require('./config/checkModel.js');
 // passport.js has been tailored for a 'Local' strategy
 let passport = require('./config/passport.js');
 var exphbs = require("express-handlebars");
@@ -84,7 +84,7 @@ force = process.env.PORT ? false : force;
 
 db.sequelize.sync({ force: force }).then(() => {
 
-  checkModel();
+  // checkModel();
   app.listen(PORT, () => {
     console.log(`Serving PORT ${PORT}`);
   });
