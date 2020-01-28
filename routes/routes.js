@@ -169,7 +169,16 @@ module.exports = function(app) {
             // Note the use of unshift; the reviews are found in id order, which is
             // chronological order given the id auto-increment assignment.
             // with unshift, the oldest will be at the highest index in the reviews array.
-            data.forEach((elt) => {bevObj.reviews.unshift(elt);});
+
+            // data.forEach((elt) => {
+            //   bevObj.reviews.unshift(elt);
+            //   console.log("")
+            // });
+
+            for(let i = 0; i < data.length; ++i){
+              bevObj.reviews.unshift(data[i]);
+              console.log(data[i].review);
+            }
             console.log(JSON.stringify(bevObj));
             res.status(200).end();
           } else {
@@ -218,15 +227,19 @@ module.exports = function(app) {
   // Client would like to post a review.
   app.post("/api/review", (req, res) => {
     console.log('Request to post a Review');
-    if (!req.user) {
-      // 401 Unauthorized
-      res.status(401);
-    } else {
+    console.log("OOOOOOOOOOOOOOO");
+    // if (!req.user) {
+    //   // 401 Unauthorized
+    //   res.status(401);
+    // } else {
       console.log(`Logged in, creating Review`);
-
+      console.log("---------------------------------------------------------")
+      console.log(req.body.review);
+      console.log(req.body.rating);
+      console.log("---------------------------------------------------------")
       // make sure the rating is in 1..5
       let rating = req.body.rating;
-      rating = rating < 1 ? 1 : (rating > 5 ? 5 : rating);
+      rating = Math.floor(rating < 1 ? 1 : (rating > 5 ? 5 : rating));
 
       // there are some protections on the Reviews table, like
       // length of userName and non-empty review.
@@ -273,6 +286,9 @@ module.exports = function(app) {
         })
       })  
     }
-  });
+///////////////////
+ // }
+///////////////////
+  );
 
 }

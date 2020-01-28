@@ -50,12 +50,12 @@
 <div class="container">
     <div class="row">
         <div class="col s12">
-            <h3 class="header">{{bevName}}</h3>
+            <h3 id="drink-name" class="header">{{bevName}}</h3>
             <div class="card horizontal">
                 <div class="col s3">
                     <div class="card-image">
-                        <img src="https://products3.imgix.drizly.com/ci-heineken-light-ccc4c123d69f7425.jpeg?auto=format%2Ccompress&fm=jpeg&q=20"
-                            style="float: left; width: 200px; height: 200px; background-size: cover;">
+                        {{!-- <img src="https://i0.wp.com/post.healthline.com/wp-content/uploads/2019/10/beer-glass-bar-1296x728-header-1296x728.jpg?w=1155&h=1528"
+                            style="float: left; width: 400px; height: 200px; background-size: cover;"> --}}
                     </div>
                 </div>
                 <div class="col s9">
@@ -79,10 +79,9 @@
                                     <div class="collapsible-header"><i class="material-icons">filter_drama</i>REVIEWS
                                     </div>
                                     {{#each reviews}}
-                                        <div class="collapsible-body"><span>{{this}}</span></div>
+                                    
+                                        <div class="collapsible-body"><span>{{this.review}}</span></div>
                                     {{/each}}
-
-                                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                 </li>
 
                                 {{!-- ADD A REVIEW/ RATING --}}

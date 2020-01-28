@@ -54,7 +54,7 @@ $(document).ready(function() {
   // Search
   $("#query").click((event) => {
     event.preventDefault();
-  
+    
     // Read the search box, then clean up and uppercase the input.
     // (The brand names are in uppercase in the Brands table.)
     let userData = {bevName: $("#search").val().trim().toUpperCase()}; 
@@ -65,7 +65,7 @@ $(document).ready(function() {
       // ...ask for brand info and any reviews
       getBev(userData);
       // Wipe the search box.  Tidy, tidy.
-      $("#query").val("");
+      //$("#query").val("");
     }
   });
 
@@ -92,6 +92,7 @@ $(document).ready(function() {
       // Ask for brand info and any reviews
       $.post("/api/review", reviewData)
       .then((data) => {
+        console.log("in api review then statement");
         // @*@*@ Expectation that server will determine whether user logged in
         // @*@*@ And handlebars logic will decide what's shown
         if (data) {
@@ -105,7 +106,9 @@ $(document).ready(function() {
         // @*@*@ Expectation is that handlebars provides 
         // @*@*@ 'data-bevName="{{bigObj.bevName}}"' as an 
         // @*@*@ attribute of the bigBlob-block <div>
-        getBev({bevName : $("#bigBlob-block").attr("data-bevName")});
+        // getBev({bevName : $("#bigBlob-block").attr("data-bevName")});
+        console.log("passing to getBev: " + $("#drink-name").val().trim().toUpperCase());
+        getBev({bevName: userData.bevName});
       })
     }  
   });
