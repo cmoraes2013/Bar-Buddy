@@ -6,23 +6,16 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 let basename = path.basename(module.filename);
-let env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
-let config;
-if (process.env.JAWSDB_URL) {
-  config = require(__dirname + "/../config/config.js")[env]; 
-} else {
-  config = require(__dirname + "/../config/config.json")[env];
-}
+let env = process.env.NODE_ENV || "development";
+let config = require(__dirname + "/../config/config.json")[env];
 require("dotenv").config();
 let db = {};
-let sequelize;
 
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    process.env.password,
-    config
-  );
+  if (config.use_env_variable) {
+    var sequelize = new Sequelize(process.env[config.use_env_variable]);
+  } else {
+    var sequelize = new Sequelize(config.database, config.username, process.env.password, config);
+  }
 
 fs
   // for all the files in this directory
